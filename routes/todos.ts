@@ -29,4 +29,15 @@ router.put("/todo/:todoId", (req, res, next) => {
   res.status(200).json({ message: "Updated!", updatedTodo: todos[todoIndex] });
 });
 
+router.delete("/todo/:todoId", (req, res, next) => {
+  const todoId = req.params.todoId;
+  const todoIndex = todos.findIndex((todo) => todo.id === todoId);
+  if (todoIndex < 0) {
+    // Send error as a response
+    return res.status(404).json({ message: "Could not find the post" });
+  }
+  todos.splice(todoIndex, 1);
+  res.status(200).json({ message: "Todo deleted!" });
+});
+
 export default router;
