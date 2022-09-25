@@ -22,7 +22,8 @@ router.put("/todo/:todoId", (req, res, next) => {
   const todoId = req.params.todoId;
   const todoIndex = todos.findIndex((todo) => todo.id === todoId);
   if (todoIndex < 0) {
-    throw new Error("Could not find todo!");
+    // Send error as a response
+    return res.status(404).json({ message: "Could not find the post" });
   }
   todos[todoIndex] = { id: todos[todoIndex].id, text: req.body.text };
   res.status(200).json({ message: "Updated!", updatedTodo: todos[todoIndex] });
